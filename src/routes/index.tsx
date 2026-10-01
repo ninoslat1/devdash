@@ -18,17 +18,23 @@ export const Route = createFileRoute('/')({
 
 function Index() {
   const [info, setInfo] = useState<SystemInfo | null>(null)
+  const [container, setContainer] = useState<ListContainerInfo[] | null>(null)
   const [open, setOpen] = useState(true)
 
   useEffect(() => {
     invoke<SystemInfo>('get_sys_info')
       .then(setInfo)
       .catch(console.error)
+
+    invoke<ListContainerInfo[]>('list_containers').then(setContainer).catch(console.error)
+
   }, [])
 
   if (!info) {
     return <div>Loading...</div>
   }
+
+  console.log(container)
 
   return (
     <div className="p-2">

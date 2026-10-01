@@ -7,3 +7,11 @@ interface SystemInfo {
   cpu_len: number;
   kernel: string
 };
+
+interface ListContainerInfo {
+  id: string,
+  name: string,
+  image: string,
+  state: string,
+  status: string,
+}

@@ -1,3 +1,3 @@
 mod system;
 
-pub use system::SystemInfo;
+pub use system::{SystemInfo, ContainerInfo};

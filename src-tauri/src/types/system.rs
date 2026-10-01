@@ -10,3 +10,12 @@ pub struct SystemInfo {
     pub cpu_len: usize,
     pub kernel: Option<String>
 }
+
+#[derive(Debug, Serialize)]
+pub struct ContainerInfo {
+    pub id: String,
+    pub name: String,
+    pub image: String,
+    pub state: String,
+    pub status: String,
+}
