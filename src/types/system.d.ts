@@ -6,7 +6,15 @@ interface SystemInfo {
   total_mem: number;
   cpu_len: number;
   kernel: string
-};
+  disks: DiskInfo[]
+}
+
+interface DiskInfo {
+    name: string,
+    mount_point: string,
+    total_space: number,
+    available_space: number,
+}
 
 interface ListContainerInfo {
   id: string,

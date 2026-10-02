@@ -1,22 +1,26 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "path"
-import { tanstackRouter } from '@tanstack/router-plugin/vite'
+import path from "path";
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import process from "node:process";
 import tailwindcss from "@tailwindcss/vite";
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
 export default defineConfig(() => ({
-  plugins: [tailwindcss(), tanstackRouter({
-    target: 'react',
-    autoCodeSplitting: true
-  }), react()],
+  plugins: [
+    tailwindcss(),
+    tanstackRouter({
+      target: "react",
+      autoCodeSplitting: true,
+    }),
+    react(),
+  ],
   resolve: {
-      alias: {
-        "@": path.resolve(import.meta.dirname, "./src"),
-      },
+    alias: {
+      "@": path.resolve(import.meta.dirname, "./src"),
     },
+  },
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
   // 1. prevent Vite from obscuring rust errors

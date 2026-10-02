@@ -1,6 +1,7 @@
-use crate::types::{ContainerInfo, SystemInfo};
+use crate::types::{ContainerInfo, DiskInfo, SystemInfo};
 use bollard::{Docker, query_parameters::ListContainersOptions};
-use sysinfo::{System};
+use serde::de::IntoDeserializer;
+use sysinfo::{System, Disks};
 
 #[tauri::command]
 pub fn get_sys_info() -> SystemInfo {
@@ -9,6 +10,15 @@ pub fn get_sys_info() -> SystemInfo {
     std::thread::sleep(sysinfo::MINIMUM_CPU_UPDATE_INTERVAL);
     sys.refresh_cpu_all();
     sys.refresh_memory();
+
+    let disks = Disks::new_with_refreshed_list();
+
+    let disks_info = disks.iter().map(|disk| DiskInfo {
+        name: disk.name().to_string_lossy().into_owned(),
+        mount_point: disk.mount_point().to_string_lossy().into_owned(),
+        total_space: disk.total_space(),
+        available_space: disk.available_space(),
+    }).collect();
 
     let total_mem = sys.total_memory();
     let used_mem = sys.used_memory();
@@ -26,6 +36,7 @@ pub fn get_sys_info() -> SystemInfo {
         total_mem: total_mem,
         cpu_len: cpu_len,
         kernel: kernel,
+        disks: disks_info,
     }
 }
 

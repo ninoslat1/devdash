@@ -6,7 +6,6 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -17,11 +16,9 @@
     "ignoreDeprecations": "6.0",
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
-      "paths": {
-        "@/*": [
-          "./src/*"
-        ]
-      },
+    "paths": {
+      "@/*": ["./src/*"]
+    },
 
     /* Linting */
     "strict": true,

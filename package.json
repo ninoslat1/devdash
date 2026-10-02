@@ -1,7 +1,7 @@
 {
   "name": "devops-dash",
-  "private": true,
   "version": "0.1.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -21,6 +21,8 @@
     "class-variance-authority": "^0.7.1",
     "cn": "^0.2.6",
     "lucide-react": "^1.45.0",
+    "oxfmt": "^0.71.0",
+    "oxlint": "^1.86.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "shadcn": "^4.21.0",
