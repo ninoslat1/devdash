@@ -43,7 +43,7 @@ const getDotColor = (progress: number) => {
   return (
     <article className="metric-card">
       <div className="flex items-center justify-between py-4">
-        <label className="uppercase">Memory</label>
+        <label className="uppercase">{label}</label>
         <div className={`h-2 w-2 rounded-full ${dot}`} />
       </div>
         <p className="text-lg font-bold">{hint}</p>
@@ -51,7 +51,7 @@ const getDotColor = (progress: number) => {
       <strong>{value}</strong>
 
       <div className="flex items-center gap-5">
-        <Progress value={50} className={`${color} flex-1`} />
+        <Progress value={progress} className={`${color} flex-1`} />
         <p>{progress}%</p>
       </div>
     </article>

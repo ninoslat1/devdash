@@ -5,14 +5,12 @@ import {
   CardDescription,
   CardAction,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card";
 import { createFileRoute } from "@tanstack/react-router";
 import { invoke } from "@tauri-apps/api/core";
 import { useEffect, useState } from "react";
 import { ArrowDown, HardDrive } from "lucide-react";
 import { formatBytes } from "@/libs/parser";
-import { Progress } from "@/components/ui/progress";
 import { Metric } from "@/components/Metric";
 
 export const Route = createFileRoute("/")({
@@ -35,7 +33,6 @@ function Index() {
   }
 
   const memoryProgress = (info!.used_mem / info!.total_mem) * 100;
-  console.log(container);
 
   return (
     <div className="p-2">
@@ -49,7 +46,7 @@ function Index() {
             <button
               type="button"
               onClick={() => setOpen((prev) => !prev)}
-              className="rounded-md p-2 hover:bg-muted"
+              className="rounded-md p-2 hover:bg-muted hover:cursor-pointer"
               aria-expanded={open}
               aria-label={open ? "Collapse system information" : "Expand system information"}
             >
@@ -104,16 +101,40 @@ function Index() {
             <CardAction>Card Action</CardAction>
           </CardHeader>
           <CardContent>
-            <Card>
-              <CardContent>
-                <Metric
-                  label="Memory"
-                  value={`${formatBytes(info.used_mem)} / ${formatBytes(info.total_mem)}`}
-                  hint={`${memoryProgress.toFixed(1)}%`}
-                  progress={Math.ceil(memoryProgress)}
-                />
-              </CardContent>
-            </Card>
+            <div className="w-full">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                  {/* Memory */}
+                  <Card className="w-full">
+                    <CardContent>
+                      <Metric
+                        label="Memory"
+                        value={`${formatBytes(info.used_mem)} / ${formatBytes(info.total_mem)}`}
+                        hint={`${memoryProgress.toFixed(1)}%`}
+                        progress={Math.ceil(memoryProgress)}
+                      />
+                    </CardContent>
+                  </Card>
+
+                  {/* Disks */}
+                  {info.disks.map((disk) => {
+                    const used = disk.total_space - disk.available_space
+                    const progress = (used / disk.total_space) * 100
+
+                    return (
+                      <Card key={disk.mount_point} className="w-full">
+                        <CardContent>
+                          <Metric
+                            label={`Disk ${disk.mount_point}`}
+                            value={`${formatBytes(used)} / ${formatBytes(disk.total_space)}`}
+                            hint={`${progress.toFixed(1)}%`}
+                            progress={Math.ceil(progress)}
+                          />
+                        </CardContent>
+                      </Card>
+                    )
+                  })}
+                </div>
+            </div>
           </CardContent>
         </Card>
       )}
