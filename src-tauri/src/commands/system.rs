@@ -1,6 +1,5 @@
 use crate::types::{ContainerInfo, DiskInfo, SystemInfo};
 use bollard::{Docker, query_parameters::ListContainersOptions};
-use serde::de::IntoDeserializer;
 use sysinfo::{System, Disks};
 
 #[tauri::command]

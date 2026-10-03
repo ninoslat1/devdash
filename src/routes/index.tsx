@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { ArrowDown, HardDrive } from "lucide-react";
 import { formatBytes } from "@/libs/parser";
 import { Metric } from "@/components/Metric";
+import { DockerTable } from "@/components/ContainerTable";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -96,9 +97,8 @@ function Index() {
       {info && (
         <Card className="border border-none">
           <CardHeader>
-            <CardTitle>Overview</CardTitle>
+            <CardTitle>Hardware Overview</CardTitle>
             <CardDescription>Current your hardware resource</CardDescription>
-            <CardAction>Card Action</CardAction>
           </CardHeader>
           <CardContent>
             <div className="w-full">
@@ -135,6 +135,18 @@ function Index() {
                   })}
                 </div>
             </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {container && (
+        <Card className="border border-none">
+          <CardHeader>
+            <CardTitle>Docker Overview</CardTitle>
+            <CardDescription>Current docker processing</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <DockerTable containers={container}/>
           </CardContent>
         </Card>
       )}
